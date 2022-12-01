@@ -7,21 +7,20 @@ const configuration = new Configuration({
 // create an instance of OpenAI
 const openai = new OpenAIApi(configuration);
 
-// will hold the base prompt
-const basePromptPrefix = "";
-
 // this function will run the action and return the generated text
 const generateAction = async (req, res) => {
-  // Run first prompt
-  console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
+  // will hold the base prompt
+  const basePromptPrefix = `write a follow up email to ${req.body.recipientName} who works at ${req.body.recipientCompanyName} 
+  about the ${req.body.jobTitle} job.My name is ${req.body.senderName} and share this additional info ${req.body.additionalInput}
+  `;
 
   const baseCompletion = await openai.createCompletion({
-    model: 'text-davinci-003',
-    prompt: `${basePromptPrefix}${req.body.userInput}\n`,
-    temperature: 0.7,
+    model: "text-davinci-003",
+    prompt: `${basePromptPrefix}`,
+    temperature: 0.8,
     max_tokens: 250,
   });
-  
+
   const basePromptOutput = baseCompletion.data.choices.pop();
 
   res.status(200).json({ output: basePromptOutput });
