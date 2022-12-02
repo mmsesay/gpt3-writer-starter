@@ -11,7 +11,7 @@ const Home = () => {
   const [recipientCompanyName, setRecipientCompanyName] = useState("");
   const [apiOutput, setApiOutput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isSwitchView, setIsSwitchView] = useState(false);
+  const [isMainView, setIsMainView] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const callGenerateEndpoint = async () => {
@@ -51,13 +51,14 @@ const Home = () => {
 
       setApiOutput(`${output.text}`);
       setIsGenerating(false);
+      setIsMainView(false);
     }
   };
 
   return (
     <div className="root">
       <Head>
-        <title>GPT-3 Writer | buildspace</title>
+        <title>MailEase</title>
       </Head>
       <div className="container">
         <div className="header">
@@ -72,7 +73,7 @@ const Home = () => {
           </div>
         </div>
         <div className="prompt-container">
-          {!apiOutput && !isSwitchView ? (
+          {isMainView ? (
             <>
               <p className="instruction-text">
                 Fill in the form below and generate
@@ -137,8 +138,9 @@ const Home = () => {
                   </div>
                 </a>
                 <a
+                  disabled
                   className="button compose-btn"
-                  onClick={() => setIsSwitchView(true)}
+                  onClick={() => setIsMainView(false)}
                 >
                   <div className="generate">
                     <p>View Recent MailEase</p>
@@ -164,7 +166,7 @@ const Home = () => {
               </div>
               <a
                 className="button compose-btn"
-                onClick={() => setIsSwitchView(false)}
+                onClick={() => setIsMainView(true)}
               >
                 <div className="generate">
                   <p>Compose New MailEase</p>
