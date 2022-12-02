@@ -52,6 +52,13 @@ const Home = () => {
       setApiOutput(`${output.text}`);
       setIsGenerating(false);
       setIsMainView(false);
+
+      // clear the inputs
+      setAdditionalInput("");
+      setSenderName("");
+      setJobTitle("");
+      setRecipientName("");
+      setRecipientCompanyName("");
     }
   };
 
