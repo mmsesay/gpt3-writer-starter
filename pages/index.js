@@ -70,10 +70,11 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Don't Delay - Take Advantage Now! MailEase 📧</h1>
+            <h1>Don't Delay - Take Advantage Now! MailEase</h1>
+            {/* 📧 */}
           </div>
           <div className="header-subtitle">
-            <h2>
+            <h2 className="text-style">
               Streamline Your Email Reach-Out Process and Reach More People
               Quickly.
             </h2>
@@ -82,12 +83,16 @@ const Home = () => {
         <div className="prompt-container">
           {isMainView ? (
             <>
-              <p className="instruction-text">
-                Fill in the form below and generate
-              </p>
-              <span className="error-text">{errorMessage && errorMessage}</span>
+              <div className="message-container">
+                <p className="instruction-text text-style">
+                  Fill in the form below and generate
+                </p>
+                <span className="error-text text-style">
+                  {errorMessage && errorMessage}
+                </span>
+              </div>
               {/* inputs */}
-              <div className="flex">
+              <div className="inputs-container">
                 <input
                   type="text"
                   placeholder="What's your name?"
@@ -105,7 +110,7 @@ const Home = () => {
                 />
               </div>
 
-              <div className="flex">
+              <div className="inputs-container">
                 <input
                   type="text"
                   placeholder="Who is the recipient?"
@@ -125,34 +130,38 @@ const Home = () => {
                 />
               </div>
 
-              <textarea
-                placeholder="please type any additional here"
-                className="prompt-box"
-                value={additionalInput}
-                onChange={(event) => setAdditionalInput(event.target.value)}
-              />
-
-              <div className="prompt-buttons">
-                <a className="button" onClick={callGenerateEndpoint}>
-                  <div className="generate">
+              <div className="inputs-container">
+                <textarea
+                  placeholder="please type any additional here"
+                  className="prompt-box"
+                  value={additionalInput}
+                  onChange={(event) => setAdditionalInput(event.target.value)}
+                />
+              </div>
+              {/* end of inputs */}
+              <div className="prompt-buttons-container">
+                <div className="prompt-buttons">
+                  <a className="button" onClick={callGenerateEndpoint}>
                     <div className="generate">
-                      {isGenerating ? (
-                        <span class="loader"></span>
-                      ) : (
-                        <p>Generate</p>
-                      )}
+                      <div className="generate">
+                        {isGenerating ? (
+                          <span class="loader"></span>
+                        ) : (
+                          <p>Generate</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </a>
-                <a
-                  disabled
-                  className="button compose-btn"
-                  onClick={() => setIsMainView(false)}
-                >
-                  <div className="generate">
-                    <p>View Recent MailEase</p>
-                  </div>
-                </a>
+                  </a>
+                  <a
+                    disabled
+                    className="button compose-btn"
+                    onClick={() => setIsMainView(false)}
+                  >
+                    <div className="generate">
+                      <p>View Recent MailEase</p>
+                    </div>
+                  </a>
+                </div>
               </div>
             </>
           ) : (
