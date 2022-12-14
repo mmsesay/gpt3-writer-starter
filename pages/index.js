@@ -14,16 +14,18 @@ const Home = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMainView, setIsMainView] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDisabledButton, setIsDisabledButton] = useState(true);
 
   const callGenerateEndpoint = async () => {
     if (
       recipientName === "" ||
       recipientCompanyName === "" ||
       jobTitle === "" ||
-      senderName === ""
+      senderName === "" ||
+      emailType === ""
     ) {
       setErrorMessage(
-        "Please note that, your name, job title, recipient name and company name are required."
+        "Please note that, the email type, your name, job title, recipient name and company name are required."
       );
     } else {
       setErrorMessage("");
@@ -43,6 +45,7 @@ const Home = () => {
           jobTitle,
           senderName,
           additionalInput,
+          emailType,
         }),
       });
 
@@ -60,6 +63,7 @@ const Home = () => {
       setJobTitle("");
       setRecipientName("");
       setRecipientCompanyName("");
+      setEmailType("");
     }
   };
 
@@ -84,6 +88,7 @@ const Home = () => {
         <div className="prompt-container">
           {isMainView ? (
             <>
+              {/* error message section */}
               <div className="message-container">
                 <p className="instruction-text text-style">
                   Fill in the form below and generate
@@ -96,17 +101,15 @@ const Home = () => {
               <div className="inputs-container">
                 <div className="select-container">
                   <select
-                    type="text"
-                    placeholder="Please select the type of email you want to generate"
-                    className="prompt-box-email-type"
+                    type="select"
                     value={emailType}
                     onChange={(event) => setEmailType(event.target.value)}
                   >
-                    <option value="" selected disabled>
+                    <option value="" disabled>
                       Choose the type of email you want to generate
                     </option>
                     <option value={"followUp"}>Follow-up Email</option>
-                    <option value={"reachOut"}>Reach Out Email</option>
+                    {/* <option value={"reachOut"}>Reach Out Email</option> */}
                     <option value={"jobApplication"}>
                       Job Application Email
                     </option>

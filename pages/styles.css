@@ -367,7 +367,6 @@ textarea {
   flex-flow: column nowrap;
   gap: 10px;
   height: min-content;
-  max-width: 1200px;
   overflow: hidden;
   position: relative;
   width: 100%;

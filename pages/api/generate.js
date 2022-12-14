@@ -9,14 +9,37 @@ const openai = new OpenAIApi(configuration);
 
 // this function will run the action and return the generated text
 const generateAction = async (req, res) => {
+  const {
+    recipientName,
+    recipientCompanyName,
+    jobTitle,
+    senderName,
+    additionalInput,
+    emailType,
+  } = req.body;
+
+  let prompt = "";
+
   // will hold the base prompt
-  const basePromptPrefix = `write a follow up email to ${req.body.recipientName} who works at ${req.body.recipientCompanyName} 
-  about the ${req.body.jobTitle} job.My name is ${req.body.senderName} and share this additional info ${req.body.additionalInput}
+  const followUpPrompt = `write a follow up email to ${recipientName} who works at ${recipientCompanyName} 
+  about the ${jobTitle} job.My name is ${senderName} and share this additional info ${additionalInput}
   `;
+
+  const jobApplicationPrompt = `
+  write a job application to the ${recipientName} at ${recipientCompanyName} company for the ${jobTitle} position. 
+  Please inform them kindly, that my name is ${senderName}. ${additionalInput}`;
+
+  if (emailType === "followUp") {
+    prompt = followUpPrompt;
+  }
+
+  if (emailType === "jobApplication") {
+    prompt = jobApplicationPrompt;
+  }
 
   const baseCompletion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `${basePromptPrefix}`,
+    prompt: `${prompt}`,
     temperature: 0.8,
     max_tokens: 250,
   });
