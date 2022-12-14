@@ -6,6 +6,7 @@ import { useState } from "react";
 const Home = () => {
   const [additionalInput, setAdditionalInput] = useState("");
   const [senderName, setSenderName] = useState("");
+  const [emailType, setEmailType] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [recipientName, setRecipientName] = useState("");
   const [recipientCompanyName, setRecipientCompanyName] = useState("");
@@ -93,6 +94,27 @@ const Home = () => {
               </div>
               {/* inputs */}
               <div className="inputs-container">
+                <div className="select-container">
+                  <select
+                    type="text"
+                    placeholder="Please select the type of email you want to generate"
+                    className="prompt-box-email-type"
+                    value={emailType}
+                    onChange={(event) => setEmailType(event.target.value)}
+                  >
+                    <option value="" selected disabled>
+                      Choose the type of email you want to generate
+                    </option>
+                    <option value={"followUp"}>Follow-up Email</option>
+                    <option value={"reachOut"}>Reach Out Email</option>
+                    <option value={"jobApplication"}>
+                      Job Application Email
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="inputs-container">
                 <input
                   type="text"
                   placeholder="What's your name?"
@@ -121,7 +143,7 @@ const Home = () => {
 
                 <input
                   type="text"
-                  placeholder="What is the name of recipient's company?"
+                  placeholder="And the name of the company?"
                   className="prompt-box"
                   value={recipientCompanyName}
                   onChange={(event) =>
